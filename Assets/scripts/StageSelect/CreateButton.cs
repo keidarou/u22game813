@@ -18,7 +18,7 @@ public class CreateButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		for (int i = 0; i < 3; i--) {
+		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 5; j++) {
 				GameObject button = (GameObject)Instantiate(stageButton) as GameObject;
 				button.transform.parent = this.transform;

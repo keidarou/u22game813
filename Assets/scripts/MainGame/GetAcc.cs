@@ -47,10 +47,10 @@ public class GetAcc : MonoBehaviour
 
 
 
-        /*if (Input.GetKeyDown(KeyCode.DownArrow)) { ret = 0; }
+        if (Input.GetKeyDown(KeyCode.DownArrow)) { ret = 0; }
         if (Input.GetKeyDown(KeyCode.UpArrow)) { ret = 2; }
         if (Input.GetKeyDown(KeyCode.RightArrow)) { ret = 1; }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { ret = 3; }*/
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { ret = 3; }
     }
     //GUIこうしん(デバックじ以外はコメントアウトで)
     void OnGUI()
