@@ -12,6 +12,13 @@ public class timelimitandmemory : MonoBehaviour {
     public Font f;
     private GUIStyle labelStyle;
     float timer;
+    public void zenkaivoid()
+    {
+
+            zenkaiclear = false;
+            clearcount++;
+    }
+
     // Use this for initialization
     void Start () {
 
@@ -25,11 +32,6 @@ public class timelimitandmemory : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer += Time.fixedDeltaTime;
-        if (zenkaiclear)
-        {
-            zenkaiclear = false;
-            clearcount++;
-        }
 	}
     void OnGUI()
     {

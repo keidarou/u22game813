@@ -9,7 +9,7 @@ public class movetheballautomatic : MonoBehaviour
     //よく考えたら１８０度回転させたとき死ぬやんこれ
     //--------------------変数-------------------//
     public bool pauseflag = false;//パス中ならtrueにします
-    public bool clearflag = true;//クリア時にtrueを代入してやってくださいクリア画面を立ち上げます<<<<<<<<<-----けいだろーーーーーーーーーーーーーーーーー！
+    public bool clearflag = false;//クリア時にtrueを代入してやってくださいクリア画面を立ち上げます<<<<<<<<<-----けいだろーーーーーーーーーーーーーーーーー！
     bool idouchuu = true;//移動中ならfalse
 
 
@@ -120,7 +120,7 @@ public class movetheballautomatic : MonoBehaviour
         downvectormokuteki = balldown.transform.position;
         goaldownx = mapgenerator.GetComponent<automaticgenerator>().downx;
         goaldowny = mapgenerator.GetComponent<automaticgenerator>().downy;
-        goalupy = mapgenerator.GetComponent<automaticgenerator>().nowx;
+        goalupx = mapgenerator.GetComponent<automaticgenerator>().nowx;
         goalupy = mapgenerator.GetComponent<automaticgenerator>().nowy;
 
         //フォントさくせい
@@ -174,12 +174,12 @@ public class movetheballautomatic : MonoBehaviour
         if (nowdownx == goaldownx && nowdowny == goaldowny && nowupx == goalupx && nowupy == goalupy)
         {
             clearflag = true;
-            timecounter.GetComponent<timelimitandmemory>().zenkaiclear=true;
+            timecounter.GetComponent<timelimitandmemory>().zenkaivoid();
         }
         if (nowdownx == goalupx && nowdowny == goalupy && nowupx == goaldownx && nowupy == goaldowny)
         {
             clearflag = true;
-            timecounter.GetComponent<timelimitandmemory>().zenkaiclear = true;
+            timecounter.GetComponent<timelimitandmemory>().zenkaivoid();
         }
 
     }
