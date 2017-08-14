@@ -10,16 +10,17 @@ public class automaticgenerator : MonoBehaviour
     public int[,] map = new int[50, 50];//x座標、y座標
     bool[,] kakutei = new bool[50, 50];
     public int nowx, nowy;
+    public string scenename;
     public int downx, downy;
     public int saiteigenkabe;
-    public int ippen;//一辺の長さ 
+    public int ippen;//一辺の長
     public int magarukaisuu;
     int startupx, startdownx, startupy, startdowny;
     int cnt = 0;
     public int previous = 0;//0は下向き、1は右向き、２は下向き、３は左向き
                             //-------------------------------------------------//
                             // Use this for initialization
-
+                    
     bool check(int y, int x, int range, int movex, int movey)
     {
         for (int i = 0; i < range; i++)//ゴールにたどり着くまで
@@ -402,24 +403,22 @@ public class automaticgenerator : MonoBehaviour
                     }*/
                     downx += downrange;//直す
                 }
-
-                Debug.Log(muki); Debug.Log("up"); Debug.Log(range); previous = muki; Debug.Log(hantairange);
-                Debug.Log("down"); Debug.Log(downrange); Debug.Log(downhantairange);
-
+                previous = muki;
                 break;
             }
         }
-        if (nowx == startupx && nowy == startupy) { SceneManager.LoadScene("MainGame"); }
-        if (downx == startdownx && downy == startdowny) { SceneManager.LoadScene("MainGame"); }
+        ////////////////////////////////
+        if (nowx == startupx && nowy == startupy) { SceneManager.LoadScene(scenename); }
+        if (downx == startdownx && downy == startdowny) { SceneManager.LoadScene(scenename); }
         int pikuto = 0;
-        for (int i = 1; i < ippen - 1; i++)
+        for (int i = 1; i < ippen ; i++)
         {
-            for (int j = 1; j < ippen - 1; j++)
+            for (int j = 1; j < ippen ; j++)
             {
                 if (map[i, j] == 1) { pikuto++; }
             }
         }
-        if (pikuto < saiteigenkabe) { SceneManager.LoadScene("MainGame"); }
+        if (pikuto < saiteigenkabe) {SceneManager.LoadScene(scenename);  }
         map[nowy, nowx] = 2;
         map[downy, downx] = 2;
         Debug.Log("  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7");
@@ -433,7 +432,7 @@ public class automaticgenerator : MonoBehaviour
                 a += map[i, j];
                 a += " ";
             }
-            Debug.Log(a);
+         //   Debug.Log(a);
         }
     }
 

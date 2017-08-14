@@ -53,10 +53,10 @@ public class botanmanager : MonoBehaviour
         {
             SceneManager.LoadScene("StageSelect");
         }
-        /* if (muki == 1)
+         if (muki == -1)
          {
              SceneManager.LoadScene("automaticselectlevel");
-         }*/
+         }
     }
 
 

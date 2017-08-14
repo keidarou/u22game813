@@ -32,12 +32,12 @@ public class Button : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		script = gameobj.GetComponent<movetheball>(); //unitychanの中にあるUnityChanScriptを取得して変数に格納する
+		script = gameobj.GetComponent<movetheball>(); 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(script.pauseflag);
+		//Debug.Log(script.pauseflag);
 		if (script.pauseflag == false) {
 			restart.SetActive (false);
 			quit.SetActive (false);

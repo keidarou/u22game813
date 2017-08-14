@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C37605B6-4976-5734-CEB9-9ACE09088372}</ProjectGuid>
+    <ProjectGuid>{63A5B90C-2F72-7650-6549-4EB313409FD3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -59,8 +59,10 @@
      <Compile Include="Assets\scripts\MainGame\GetAcc.cs" />
      <Compile Include="Assets\scripts\MainGame\mapgenerator.cs" />
      <Compile Include="Assets\scripts\MainGame\movetheball.cs" />
+     <Compile Include="Assets\scripts\MainGame\movetheballautomatic.cs" />
      <Compile Include="Assets\scripts\MainGame\StageClear.cs" />
      <Compile Include="Assets\scripts\MainGame\thisisgomi.cs" />
+     <Compile Include="Assets\scripts\MainGame\timelimitandmemory.cs" />
      <Compile Include="Assets\scripts\StageSelect\CreateButton.cs" />
      <Compile Include="Assets\scripts\StageSelect\MoveScene.cs" />
      <Compile Include="Assets\scripts\Title\botanmanager.cs" />

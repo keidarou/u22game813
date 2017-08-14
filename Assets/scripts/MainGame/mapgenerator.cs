@@ -61,7 +61,7 @@ public class mapgenerator : MonoBehaviour
                 if (map[i, j] == 2)
                 {
                     GameObject goalins = (GameObject)Instantiate(goal);
-                    goalins.transform.position = new Vector3(-kiteix - haba * (width / 2 + 1 - jj) + 0.5f, kiteiy + haba * (width / 2 - ii + 1)-0.5f, z); ; continue;
+                    goalins.transform.position = new Vector3(-kiteix - haba * (width / 2 + 1 - jj) + 0.5f, kiteiy + haba * (width / 2 - ii + 1)-0.5f, 0f) ; continue;
                 }
                     if (j % 2 == 1) { continue; }
                 if (map[i, j] == 1 && map[i, j + 1] == 1 && map[i, j + 2] == 1)

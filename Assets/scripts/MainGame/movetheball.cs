@@ -9,7 +9,7 @@ public class movetheball : MonoBehaviour
     //よく考えたら１８０度回転させたとき死ぬやんこれ
     //--------------------変数-------------------//
     public bool pauseflag = false;//パス中ならtrueにします
-    public bool clearflag = true;//クリア時にtrueを代入してやってくださいクリア画面を立ち上げます<<<<<<<<<-----けいだろーーーーーーーーーーーーーーーーー！
+    public bool clearflag = false;//クリア時にtrueを代入してやってくださいクリア画面を立ち上げます<<<<<<<<<-----けいだろーーーーーーーーーーーーーーーーー！
     bool idouchuu = true;//移動中ならfalse
 
 
@@ -26,7 +26,6 @@ public class movetheball : MonoBehaviour
     public bool goalsitaka = false;
     public int kaisuuseigen;
     public int goaldownx, goaldowny, goalupx, goalupy;
-    private GUIStyle labelStyle;
     Vector3 upvectormokuteki, upvectornow, downvectornow, downvectormokuteki = Vector3.zero, directiondown, directionup;//移動にはvectorにする必要がある
     //-------------------------------------------------
     //内容としては、玉が動き終わって、スマホの方向、位置が与えられたとき、どの方向に何マス動くかというのを返します。
@@ -121,17 +120,14 @@ public class movetheball : MonoBehaviour
 
 
         //フォントさくせい
-        this.labelStyle = new GUIStyle();
-        this.labelStyle.fontSize = Screen.height / 20;
-        this.labelStyle.normal.textColor = Color.black;
-        Debug.Log("up");
+       /* Debug.Log("up");
         Debug.Log(Selectrange(0, -1, nowdownx, nowdowny));
         Debug.Log("down");
         Debug.Log(Selectrange(0, 1, nowdownx, nowdowny));
         Debug.Log("left");
         Debug.Log(Selectrange(-1, 0, nowdownx, nowdowny));
         Debug.Log("right");
-        Debug.Log(Selectrange(1, 0, nowdownx, nowdowny));
+        Debug.Log(Selectrange(1, 0, nowdownx, nowdowny));*/
     }
 
     // Update is called once per frame
@@ -169,20 +165,16 @@ public class movetheball : MonoBehaviour
 
         //  ballup.transform.position = upvectormokuteki;
         // balldown.transform.position = downvectormokuteki;
-        if (nowdownx == goaldownx&&nowdowny==goaldowny&&nowupx==goalupx&&nowupy==goalupy)
+        if (nowdownx == goaldownx && nowdowny == goaldowny && nowupx == goalupx && nowupy == goalupy)
         {
-            goalsitaka = true;
+            clearflag = true;
         }
         if (nowdownx == goalupx && nowdowny == goalupy && nowupx == goaldownx && nowupy == goaldowny)
         {
-            goalsitaka = true;
+            clearflag = true;
         }
     }
 
-    void OnGUI()
-    {
-        string s = string.Format("{0}Times Left", kaisuuseigen);
-        GUI.Label(new Rect(1600, 50, 100, 30), s, labelStyle);
-    }
+ 
 }
 //map[y][x]、縦に移動するときはぎゃく！（配列の性質的に、上の方が小さい
