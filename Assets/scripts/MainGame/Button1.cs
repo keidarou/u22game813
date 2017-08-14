@@ -14,21 +14,20 @@ public class Button1 : MonoBehaviour {
 
 	movetheballautomatic script;
 
-	public void ButtonClick() {
-		switch (transform.name) {
-		case "Pause":
+    public void pausebottun()
+    {
 			script.pauseflag = true;
-			break;
-		case "Restart":
+    }
+    public void restartbutton()
+    {
+        script.restartflag = true;
 			script.pauseflag = false;
-			break;
-		case "Quit":
+    }
+    public void quitbutton()
+    {
 			SceneManager.LoadScene ("StageSelect");
-			break;
-		default:
-			break;
-		}
-	}
+    }
+    
 
 	// Use this for initialization
 	void Start () {

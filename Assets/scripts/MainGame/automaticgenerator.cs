@@ -15,7 +15,7 @@ public class automaticgenerator : MonoBehaviour
     public int saiteigenkabe;
     public int ippen;//一辺の長
     public int magarukaisuu;
-    int startupx, startdownx, startupy, startdowny;
+    public int startupx, startdownx, startupy, startdowny;
     int cnt = 0;
     public int previous = 0;//0は下向き、1は右向き、２は下向き、３は左向き
                             //-------------------------------------------------//
@@ -409,6 +409,8 @@ public class automaticgenerator : MonoBehaviour
         }
         ////////////////////////////////
         if (nowx == startupx && nowy == startupy) { SceneManager.LoadScene(scenename); }
+        if (nowx == startdownx && nowy == startdowny) { SceneManager.LoadScene(scenename); }
+        if (downx == startupx && downy == startupy) { SceneManager.LoadScene(scenename); }
         if (downx == startdownx && downy == startdowny) { SceneManager.LoadScene(scenename); }
         int pikuto = 0;
         for (int i = 1; i < ippen ; i++)
@@ -421,7 +423,7 @@ public class automaticgenerator : MonoBehaviour
         if (pikuto < saiteigenkabe) {SceneManager.LoadScene(scenename);  }
         map[nowy, nowx] = 2;
         map[downy, downx] = 2;
-        Debug.Log("  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7");
+      //  Debug.Log("  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7");
         for (int i = 0; i < 17; i++)
         {
             string a = ""; a += i.ToString(); a += " ";

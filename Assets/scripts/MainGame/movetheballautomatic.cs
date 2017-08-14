@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class movetheballautomatic : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class movetheballautomatic : MonoBehaviour
     GetAcc acc;//どれくらい回転しているかをみるため
     public GameObject mapgenerator, balldown, ballup;//それぞれのゲームオブジェクト、分からなければ連絡よろ
     int[,] map = new int[50, 50];//マップ
-
+    public bool gameoverflag;
+    public bool restartflag=false;
     public GameObject timecounter;
     int down, up;//downは重力に従って落ちるボールが何マス落ちるか、upはその逆
     public int nowupx, nowupy, nowdownx, nowdowny;//グリッド表示での現在の座標
@@ -27,10 +29,14 @@ public class movetheballautomatic : MonoBehaviour
     int karix, kariy;
     public int kaisuuseigen;
     public int goaldownx, goaldowny, goalupx, goalupy;
+    public int startupintx, startupinty,startdownintx,startdowninty;
+    Vector3 startup, startdown;
     Vector3 upvectormokuteki, upvectornow, downvectornow, downvectormokuteki = Vector3.zero, directiondown, directionup;//移動にはvectorにする必要がある
-    //-------------------------------------------------
-    //内容としては、玉が動き終わって、スマホの方向、位置が与えられたとき、どの方向に何マス動くかというのを返します。
-    //返すといっても変数の中に格納しておくだけです。返り値はないです。
+                                                                                                                        //-------------------------------------------------
+                                                                                                                        //内容としては、玉が動き終わって、スマホの方向、位置が与えられたとき、どの方向に何マス動くかというのを返します。
+                                                                                                                        //返すといっても変数の中に格納しておくだけです。返り値はないです。
+
+
 
     int Selectrange(int x, int y, int nowx, int nowy)//このx,yはx方向にどれだけ、y方向も同様なので、通常x,y=1,0・0,1・-1,0・0,-1
     {
@@ -115,6 +121,8 @@ public class movetheballautomatic : MonoBehaviour
         //  mapgenerator = GameObject.Find("mapgenerator");//mapgeneratorからmapの配列をひくため、ただ、これ呼ばれる順番が怪しい
         map = mapgenerator.GetComponent<automaticgenerator>().map;//これ、こっちの方が速く実行されていたらしぬので、そこを注意
         acc = GetComponent<GetAcc>();//GetAccスクリプト
+        startup = ballup.transform.position;
+        startdown = balldown.transform.position;
         nowrotation = 0;//最初のスマホの角度代入
         upvectormokuteki = ballup.transform.position;
         downvectormokuteki = balldown.transform.position;
@@ -122,6 +130,10 @@ public class movetheballautomatic : MonoBehaviour
         goaldowny = mapgenerator.GetComponent<automaticgenerator>().downy;
         goalupx = mapgenerator.GetComponent<automaticgenerator>().nowx;
         goalupy = mapgenerator.GetComponent<automaticgenerator>().nowy;
+        startupintx = mapgenerator.GetComponent<automaticgenerator>().startupx;
+        startupinty = mapgenerator.GetComponent<automaticgenerator>().startupy;
+        startdownintx = mapgenerator.GetComponent<automaticgenerator>().startdownx;
+        startdowninty = mapgenerator.GetComponent<automaticgenerator>().startdowny;
 
         //フォントさくせい
         /* Debug.Log("up");
@@ -138,52 +150,73 @@ public class movetheballautomatic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!idouchuu && pauseflag)
+        timecounter = GameObject.Find("timecounter");
+        if (pauseflag == false)
         {
-            return;
-        }
-        upvectornow = ballup.transform.position;
-        downvectornow = balldown.transform.position;
-        //ballup.transform.position = Vector3.Slerp(upvectornow, upvectormokuteki, Time.deltaTime);//Lerpですすむ、AnimationCurveであとで速さとか調節、第三引数ようわからないのでデバッグ
-        // balldown.transform.position = Vector3.Slerp(downvectornow, downvectormokuteki, Time.deltaTime);
-        if (idouchuu == true && nowrotation != acc.getDirection())//もし移動中じゃないかつスマホの向きが変わっていたら（回転されたら
-        {
-            idouchuu = false;//移動中
-            nowrotation = acc.getDirection();//スマホの角度代入
-            selectDirectionandrange(nowrotation);//上向きに何マス、下向きに何マス移動するかをメモ
-            kaisuuseigen--;
-            ballmove();//動かす！
-        }
-        if (Vector3.Distance(downvectormokuteki, downvectornow) <= kyoyouhanni && Vector3.Distance(upvectormokuteki, upvectornow) <= kyoyouhanni)//スピードを上げたら、この中の値を大きくしないとだめ！
-        {
-            idouchuu = true;
-        }
-        if (Vector3.Distance(upvectormokuteki, upvectornow) >= kyoyouhanni)
-        {
-            directionup = (upvectormokuteki - upvectornow).normalized;
-            ballup.transform.Translate(directionup * Time.deltaTime * speed, Space.World);
-        }
-        if (Vector3.Distance(downvectormokuteki, downvectornow) >= kyoyouhanni)
-        {
-            directiondown = (downvectormokuteki - downvectornow).normalized;
-            balldown.transform.Translate(directiondown * Time.deltaTime * speed, Space.World);
-        }
+            if (timecounter.GetComponent<timelimitandmemory>().gameoverflag == true) { gameoverflag = true; }
+            else
+            {
+                if (!idouchuu && pauseflag)
+                {
+                    return;
+                }
+                upvectornow = ballup.transform.position;
+                downvectornow = balldown.transform.position;
+                //ballup.transform.position = Vector3.Slerp(upvectornow, upvectormokuteki, Time.deltaTime);//Lerpですすむ、AnimationCurveであとで速さとか調節、第三引数ようわからないのでデバッグ
+                // balldown.transform.position = Vector3.Slerp(downvectornow, downvectormokuteki, Time.deltaTime);
+                if (idouchuu == true && nowrotation != acc.getDirection())//もし移動中じゃないかつスマホの向きが変わっていたら（回転されたら
+                {
+                    idouchuu = false;//移動中
+                    nowrotation = acc.getDirection();//スマホの角度代入
+                    selectDirectionandrange(nowrotation);//上向きに何マス、下向きに何マス移動するかをメモ
+                    kaisuuseigen--;
+                    ballmove();//動かす！
+                }
+                if (Vector3.Distance(downvectormokuteki, downvectornow) <= kyoyouhanni && Vector3.Distance(upvectormokuteki, upvectornow) <= kyoyouhanni)//スピードを上げたら、この中の値を大きくしないとだめ！
+                {
+                    idouchuu = true;
+                    if (nowdownx == goaldownx && nowdowny == goaldowny && nowupx == goalupx && nowupy == goalupy)
+                    {
+                        clearflag = true;
+                        timecounter.GetComponent<timelimitandmemory>().zenkaivoid();
+                        SceneManager.LoadScene("endlessmodeeasy");
+                    }
+                    if (nowdownx == goalupx && nowdowny == goalupy && nowupx == goaldownx && nowupy == goaldowny)
+                    {
+                        clearflag = true;
+                        timecounter.GetComponent<timelimitandmemory>().zenkaivoid();
+                        SceneManager.LoadScene("endlessmodeeasy");
+                    }
+                }
+                if (Vector3.Distance(upvectormokuteki, upvectornow) >= kyoyouhanni)
+                {
+                    directionup = (upvectormokuteki - upvectornow).normalized;
+                    ballup.transform.Translate(directionup * Time.deltaTime * speed, Space.World);
+                }
+                if (Vector3.Distance(downvectormokuteki, downvectornow) >= kyoyouhanni)
+                {
+                    directiondown = (downvectormokuteki - downvectornow).normalized;
+                    balldown.transform.Translate(directiondown * Time.deltaTime * speed, Space.World);
+                }
 
-        //  ballup.transform.position = upvectormokuteki;
-        // balldown.transform.position = downvectormokuteki;
-        if (nowdownx == goaldownx && nowdowny == goaldowny && nowupx == goalupx && nowupy == goalupy)
-        {
-            clearflag = true;
-            timecounter.GetComponent<timelimitandmemory>().zenkaivoid();
+                //  ballup.transform.position = upvectormokuteki;
+                // balldown.transform.position = downvectormokuteki;
+            }
         }
-        if (nowdownx == goalupx && nowdowny == goalupy && nowupx == goaldownx && nowupy == goaldowny)
+        if (restartflag)
         {
-            clearflag = true;
-            timecounter.GetComponent<timelimitandmemory>().zenkaivoid();
+            balldown.transform.position = startdown;
+            ballup.transform.position = startup;
+            downvectormokuteki = startdown;
+            downvectornow = startdown;
+            upvectormokuteki = startup;
+            upvectornow = startup;
+            nowdownx = startdownintx;
+            nowupx = startupintx;
+            nowdowny = startdowninty;
+            nowupy = startupinty;
+            restartflag = false;
         }
-
     }
-
-
 }
 //map[y][x]、縦に移動するときはぎゃく！（配列の性質的に、上の方が小さい

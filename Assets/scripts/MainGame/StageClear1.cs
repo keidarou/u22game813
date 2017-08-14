@@ -27,7 +27,7 @@ public class StageClear1 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (script.clearflag == true) {
+		if (script.gameoverflag == true) {
 			text.SetActive(true);
 			tweetbtn.SetActive(true);
 			replay.SetActive(true);
