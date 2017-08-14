@@ -53,7 +53,7 @@ public class GetAcc : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { ret = 3; }
     }
     //GUIこうしん(デバックじ以外はコメントアウトで)
-    void OnGUI()
+   /* void OnGUI()
     {
         if (acc != null)
         {
@@ -90,7 +90,7 @@ public class GetAcc : MonoBehaviour
 
             }
         }
-    }
+    }*/
 
     public int getDirection()
     {

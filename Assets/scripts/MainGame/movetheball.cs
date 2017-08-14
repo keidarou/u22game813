@@ -156,11 +156,14 @@ public class movetheball : MonoBehaviour
         {
             idouchuu = true;
         }
-        else
+        if (Vector3.Distance(upvectormokuteki, upvectornow) >= kyoyouhanni)
         {
             directionup = (upvectormokuteki - upvectornow).normalized;
-            directiondown = (downvectormokuteki - downvectornow).normalized;
             ballup.transform.Translate(directionup * Time.deltaTime * speed, Space.World);
+        }
+        if (Vector3.Distance(downvectormokuteki, downvectornow) >= kyoyouhanni)
+        {
+            directiondown = (downvectormokuteki - downvectornow).normalized;
             balldown.transform.Translate(directiondown * Time.deltaTime * speed, Space.World);
         }
 
