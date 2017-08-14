@@ -56,11 +56,13 @@
      <Compile Include="Assets\Keida_rubbish\mousecontroller.cs" />
      <Compile Include="Assets\scripts\MainGame\automaticgenerator.cs" />
      <Compile Include="Assets\scripts\MainGame\Button.cs" />
+     <Compile Include="Assets\scripts\MainGame\Button1.cs" />
      <Compile Include="Assets\scripts\MainGame\GetAcc.cs" />
      <Compile Include="Assets\scripts\MainGame\mapgenerator.cs" />
      <Compile Include="Assets\scripts\MainGame\movetheball.cs" />
      <Compile Include="Assets\scripts\MainGame\movetheballautomatic.cs" />
      <Compile Include="Assets\scripts\MainGame\StageClear.cs" />
+     <Compile Include="Assets\scripts\MainGame\StageClear1.cs" />
      <Compile Include="Assets\scripts\MainGame\thisisgomi.cs" />
      <Compile Include="Assets\scripts\MainGame\timelimitandmemory.cs" />
      <Compile Include="Assets\scripts\StageSelect\CreateButton.cs" />
